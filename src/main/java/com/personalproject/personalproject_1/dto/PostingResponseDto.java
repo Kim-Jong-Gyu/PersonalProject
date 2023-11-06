@@ -4,6 +4,7 @@ import com.personalproject.personalproject_1.entitiy.Posting;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 public class PostingResponseDto {
@@ -12,21 +13,17 @@ public class PostingResponseDto {
     private String postingName;
     private String userName;
     private String postingContent;
-    private String date;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
+
 
     public PostingResponseDto(Posting posting) {
         this.id = posting.getId();
         this.userName = posting.getUserName();
         this.postingName = posting.getPostingName();
         this.postingContent = posting.getPostingContent();
-        this.date = String.valueOf(posting.getDate());
+        this.createdAt = posting.getCreatedAt();
+        this.modifiedAt = posting.getModifiedAt();
     }
 
-    public PostingResponseDto(Long id, String postingName, String postingContent, String userName, String date) {
-        this.id = id;
-        this.postingName = postingName;
-        this.postingContent = postingContent;
-        this.userName = userName;
-        this.date = date;
-    }
 }
