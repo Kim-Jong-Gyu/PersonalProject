@@ -17,25 +17,25 @@ public class PostEntity extends TimeEntity {
     // auto-increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "postingName", nullable = false, unique = true)
+    @Column(name = "post_name", nullable = false)
     private String postingName;
-    @Column(name = "userName", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "postingContent", nullable = false, length = 500)
-    private String postingContent;
+    @Column(name = "content", nullable = false, length = 500)
+    private String content;
 
 
     public PostEntity(PostRequestDto requestDto) {
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
         this.password = requestDto.getPassword();
-        this.postingContent = requestDto.getPostingContent();
+        this.content = requestDto.getPostingContent();
     }
     public void update(PostRequestDto requestDto){
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
-        this.postingContent = requestDto.getPostingContent();
+        this.content = requestDto.getPostingContent();
     }
 }
