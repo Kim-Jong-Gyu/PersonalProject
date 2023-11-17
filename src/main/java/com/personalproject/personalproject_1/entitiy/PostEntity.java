@@ -31,11 +31,11 @@ public class PostEntity extends TimeEntity {
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
         this.password = requestDto.getPassword();
-        this.content = requestDto.getPostingContent();
+        this.content = requestDto.getContent();
     }
     public void update(PostRequestDto requestDto){
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
-        this.content = requestDto.getPostingContent();
+        this.content = requestDto.getContent();
     }
 }
