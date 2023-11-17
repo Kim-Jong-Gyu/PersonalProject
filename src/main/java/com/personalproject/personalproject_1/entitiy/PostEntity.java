@@ -1,7 +1,6 @@
 package com.personalproject.personalproject_1.entitiy;
 
-import com.personalproject.personalproject_1.dto.PostingRequestDto;
-import com.personalproject.personalproject_1.dto.PostingResponseDto;
+import com.personalproject.personalproject_1.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "posting")
 @NoArgsConstructor
-public class Posting extends Timestamped {
+public class PostEntity extends TimeEntity {
     @Id
     // auto-increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +27,13 @@ public class Posting extends Timestamped {
     private String postingContent;
 
 
-    public Posting(PostingRequestDto requestDto) {
+    public PostEntity(PostRequestDto requestDto) {
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
         this.password = requestDto.getPassword();
         this.postingContent = requestDto.getPostingContent();
     }
-    public void update(PostingRequestDto requestDto){
+    public void update(PostRequestDto requestDto){
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
         this.postingContent = requestDto.getPostingContent();

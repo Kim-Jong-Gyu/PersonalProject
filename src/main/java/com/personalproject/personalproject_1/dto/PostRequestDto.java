@@ -2,9 +2,8 @@ package com.personalproject.personalproject_1.dto;
 
 import lombok.Getter;
 
-import java.time.LocalTime;
 @Getter
-public class PostingRequestDto {
+public class PostRequestDto {
     private String postingName;
     private String userName;
     private String password;
