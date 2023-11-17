@@ -1,6 +1,6 @@
 package com.personalproject.personalproject_1.dto;
 
-import com.personalproject.personalproject_1.entitiy.PostEntity;
+import com.personalproject.personalproject_1.entitiy.Post;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -10,19 +10,19 @@ public class PostResponseDto {
 
     private Long id;
     private String title;
-    private String name;
+    private String author;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
 
-    public PostResponseDto(PostEntity postEntity) {
-        this.id = postEntity.getId();
-        this.title = postEntity.getTitle();
-        this.name = postEntity.getName();
-        this.content = postEntity.getContent();
-        this.createdAt = postEntity.getCreatedAt();
-        this.modifiedAt = postEntity.getModifiedAt();
+    public PostResponseDto(Post post) {
+        this.id = post.getId();
+        this.title = post.getTitle();
+        this.author = post.getAuthor();
+        this.content = post.getContent();
+        this.createdAt = post.getCreatedAt();
+        this.modifiedAt = post.getModifiedAt();
     }
 
 }

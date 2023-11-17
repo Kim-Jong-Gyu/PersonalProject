@@ -31,12 +31,12 @@ public class PostController {
     public List<PostResponseDto> getPosts(){
         return postService.getPosts();
     }
-    @PutMapping("/{postId}/{password}")
-    public PostResponseDto updatePost(@PathVariable Long postId, @PathVariable String password, @RequestBody PostRequestDto requestDto){
-        return postService.updatePost(postId, password, requestDto);
+    @PutMapping("/{postId}")
+    public PostResponseDto updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto){
+        return postService.updatePost(postId, requestDto);
     }
-    @DeleteMapping("/{postId}/{password}")
-    public Long deletePost(@PathVariable Long postId, @PathVariable String password){
+    @DeleteMapping("/{postId}")
+    public Long deletePost(@PathVariable Long postId, @RequestHeader("password") String password){
         return postService.deletePost(postId,password);
     }
 }

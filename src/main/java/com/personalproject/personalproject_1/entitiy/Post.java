@@ -12,30 +12,30 @@ import lombok.Setter;
 @Setter
 @Table(name = "posts")
 @NoArgsConstructor
-public class PostEntity extends TimeEntity {
+public class Post extends Time {
     @Id
     // auto-increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "author", nullable = false)
+    private String author;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "content", nullable = false, length = 500)
     private String content;
 
 
-    public PostEntity(PostRequestDto requestDto) {
+    public Post(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
-        this.name = requestDto.getName();
+        this.author = requestDto.getAuthor();
         this.password = requestDto.getPassword();
         this.content = requestDto.getContent();
     }
     public void update(PostRequestDto requestDto){
         this.title = requestDto.getTitle();
-        this.name = requestDto.getName();
+        this.author = requestDto.getAuthor();
         this.content = requestDto.getContent();
     }
 }
