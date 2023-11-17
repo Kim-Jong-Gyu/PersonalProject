@@ -10,17 +10,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "posting")
+@Table(name = "posts")
 @NoArgsConstructor
 public class PostEntity extends TimeEntity {
     @Id
     // auto-increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "post_name", nullable = false)
-    private String postingName;
-    @Column(name = "user_name", nullable = false)
-    private String userName;
+    @Column(name = "title", nullable = false)
+    private String title;
+    @Column(name = "name", nullable = false)
+    private String name;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "content", nullable = false, length = 500)
@@ -28,14 +28,14 @@ public class PostEntity extends TimeEntity {
 
 
     public PostEntity(PostRequestDto requestDto) {
-        this.postingName = requestDto.getPostingName();
-        this.userName = requestDto.getUserName();
+        this.title = requestDto.getTitle();
+        this.name = requestDto.getName();
         this.password = requestDto.getPassword();
         this.content = requestDto.getContent();
     }
     public void update(PostRequestDto requestDto){
-        this.postingName = requestDto.getPostingName();
-        this.userName = requestDto.getUserName();
+        this.title = requestDto.getTitle();
+        this.name = requestDto.getName();
         this.content = requestDto.getContent();
     }
 }

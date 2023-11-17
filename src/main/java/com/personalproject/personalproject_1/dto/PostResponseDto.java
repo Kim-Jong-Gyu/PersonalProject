@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 public class PostResponseDto {
 
     private Long id;
-    private String postingName;
-    private String userName;
+    private String title;
+    private String name;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -18,8 +18,8 @@ public class PostResponseDto {
 
     public PostResponseDto(PostEntity postEntity) {
         this.id = postEntity.getId();
-        this.userName = postEntity.getUserName();
-        this.postingName = postEntity.getPostingName();
+        this.title = postEntity.getTitle();
+        this.name = postEntity.getName();
         this.content = postEntity.getContent();
         this.createdAt = postEntity.getCreatedAt();
         this.modifiedAt = postEntity.getModifiedAt();
