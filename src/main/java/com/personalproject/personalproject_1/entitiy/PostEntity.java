@@ -1,7 +1,6 @@
 package com.personalproject.personalproject_1.entitiy;
 
-import com.personalproject.personalproject_1.dto.PostingRequestDto;
-import com.personalproject.personalproject_1.dto.PostingResponseDto;
+import com.personalproject.personalproject_1.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,30 +12,30 @@ import lombok.Setter;
 @Setter
 @Table(name = "posting")
 @NoArgsConstructor
-public class Posting extends Timestamped {
+public class PostEntity extends TimeEntity {
     @Id
     // auto-increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "postingName", nullable = false, unique = true)
+    @Column(name = "post_name", nullable = false)
     private String postingName;
-    @Column(name = "userName", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "postingContent", nullable = false, length = 500)
-    private String postingContent;
+    @Column(name = "content", nullable = false, length = 500)
+    private String content;
 
 
-    public Posting(PostingRequestDto requestDto) {
+    public PostEntity(PostRequestDto requestDto) {
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
         this.password = requestDto.getPassword();
-        this.postingContent = requestDto.getPostingContent();
+        this.content = requestDto.getContent();
     }
-    public void update(PostingRequestDto requestDto){
+    public void update(PostRequestDto requestDto){
         this.postingName = requestDto.getPostingName();
         this.userName = requestDto.getUserName();
-        this.postingContent = requestDto.getPostingContent();
+        this.content = requestDto.getContent();
     }
 }
