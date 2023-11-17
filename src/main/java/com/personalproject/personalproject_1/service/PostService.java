@@ -18,24 +18,24 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public PostResponseDto createPosting(PostRequestDto requestDto) {
+    public PostResponseDto createPost(PostRequestDto requestDto) {
         PostEntity postEntity = new PostEntity(requestDto);
         PostEntity savePostEntity = postRepository.save(postEntity);
         return new PostResponseDto(savePostEntity);
     }
 
-    public PostResponseDto getPosting(Long id) {
-        return new PostResponseDto(findPosting(id));
+    public PostResponseDto getPost(Long id) {
+        return new PostResponseDto(findPost(id));
     }
 
-    public List<PostResponseDto> getPostings() {
+    public List<PostResponseDto> getPosts() {
         return postRepository.findAll().stream().map(PostResponseDto::new).toList();
     }
 
 
     @Transactional
-    public PostResponseDto updatePosting(Long id, String password, PostRequestDto requestDto) {
-        PostEntity postEntity = findPosting(id);
+    public PostResponseDto updatePost(Long id, String password, PostRequestDto requestDto) {
+        PostEntity postEntity = findPost(id);
         System.out.println(postEntity.getPassword());
         if(!postEntity.getPassword().equals(password))
             throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
@@ -43,8 +43,8 @@ public class PostService {
         return new PostResponseDto(postEntity);
     }
 
-    public Long deletePosting(Long id, String password){
-        PostEntity postEntity = findPosting(id);
+    public Long deletePost(Long id, String password){
+        PostEntity postEntity = findPost(id);
         if(!postEntity.getPassword().equals(password))
             throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
         postRepository.delete(postEntity);
@@ -52,7 +52,7 @@ public class PostService {
     }
 
 
-    private PostEntity findPosting(Long id){
+    private PostEntity findPost(Long id){
         return postRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
         );
