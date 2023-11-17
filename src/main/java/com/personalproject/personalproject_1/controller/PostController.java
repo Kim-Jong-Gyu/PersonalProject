@@ -23,20 +23,20 @@ public class PostController {
         return postService.createPosting(requestDto);
     }
 
-    @GetMapping("/{id}")
-    public PostResponseDto getPosting(@PathVariable Long id) {
-        return postService.getPosting(id);
+    @GetMapping("/{postId}")
+    public PostResponseDto getPosting(@PathVariable Long postId) {
+        return postService.getPosting(postId);
     }
     @GetMapping
     public List<PostResponseDto> getPostings(){
         return postService.getPostings();
     }
-    @PutMapping("/{id}/{password}")
-    public PostResponseDto updatePosting(@PathVariable Long id, @PathVariable String password, @RequestBody PostRequestDto requestDto){
-        return postService.updatePosting(id, password, requestDto);
+    @PutMapping("/{postId}/{password}")
+    public PostResponseDto updatePosting(@PathVariable Long postId, @PathVariable String password, @RequestBody PostRequestDto requestDto){
+        return postService.updatePosting(postId, password, requestDto);
     }
-    @DeleteMapping("/{id}/{password}")
-    public Long deletePosting(@PathVariable long id, @PathVariable String password){
-        return postService.deletePosting(id,password);
+    @DeleteMapping("/{postId}/{password}")
+    public Long deletePosting(@PathVariable Long postId, @PathVariable String password){
+        return postService.deletePosting(postId,password);
     }
 }
