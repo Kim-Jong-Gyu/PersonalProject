@@ -11,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -54,10 +51,23 @@ public class PostService {
     @Transactional
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto, User user) {
         Post post = findPost(id);
-        if(post.getId() == user.getId()){
+        if(Objects.equals(post.getUser().getId(), user.getId())){
             post.update(requestDto);
         }
+        else {
+            throw new Exception(ErrorCode.DO_NOT_MATCH_ID);
+        }
         return new PostResponseDto(post);
+    }
+    @Transactional
+    public void updateComplete(Long id, User user) {
+        Post post = findPost(id);
+        if(Objects.equals(post.getUser().getId(), user.getId())){
+            post.complete();
+        }
+        else {
+            throw new Exception(ErrorCode.DO_NOT_MATCH_ID);
+        }
     }
 //
 //    public void deletePost(Long id, String password) {

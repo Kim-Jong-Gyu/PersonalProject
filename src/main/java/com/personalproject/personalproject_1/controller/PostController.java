@@ -53,6 +53,12 @@ public class PostController {
         return ResponseEntity.ok(postResponseDto);
     }
 
+    @PatchMapping("/completed/{postId}")
+    public ResponseEntity<Void> updateComplete(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId){
+        postService.updateComplete(postId, userDetails.getUser());
+        return ResponseEntity.ok().build();
+    }
+
 
 //    @DeleteMapping("/{postId}")
 //    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @RequestHeader("password") String password){

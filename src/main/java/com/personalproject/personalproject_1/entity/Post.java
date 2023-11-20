@@ -31,4 +31,8 @@ public class Post extends Time {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
+
+    public void complete() {
+        this.isComplete = true;
+    }
 }
