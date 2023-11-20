@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,11 +41,12 @@ public class PostController {
         PostResponseDto postResponseDto = postService.getPost(postId);
         return ResponseEntity.ok(postResponseDto);
     }
-//    @GetMapping
-//    public ResponseEntity<List<PostResponseDto>> getPosts(){
-//        List<PostResponseDto> postResponseDto = postService.getPosts();
-//        return ResponseEntity.ok(postResponseDto);
-//    }
+    @GetMapping
+    public ResponseEntity<Map<String, List<PostResponseDto>>> getPosts(){
+        Map<String, List<PostResponseDto>> postResponseDto = postService.getPosts();
+        return ResponseEntity.ok(postResponseDto);
+    }
+
 //    @PatchMapping("/{postId}")
 //    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto){
 //        PostResponseDto postResponseDto = postService.updatePost(postId,requestDto);

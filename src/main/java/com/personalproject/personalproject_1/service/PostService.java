@@ -11,7 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -32,10 +35,20 @@ public class PostService {
     public PostResponseDto getPost(Long id) {
         return new PostResponseDto(findPost(id));
     }
-//
-//    public List<PostResponseDto> getPosts() {
-//        return postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).toList();
-//    }
+
+    public Map<String, List<PostResponseDto>> getPosts() {
+        Map<String, List<PostResponseDto>> userPostMap = new HashMap<>();
+        List<PostResponseDto> postList = postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).toList();
+        postList.forEach(postResponseDto -> {
+            if(userPostMap.containsKey(postResponseDto.getUsername())){
+                userPostMap.get(postResponseDto.getUsername()).add(postResponseDto);
+            }
+            else{
+                userPostMap.put(postResponseDto.getUsername(), new ArrayList<>(List.of(postResponseDto)));
+            }
+        });
+        return userPostMap;
+    }
 //
 //
 //    @Transactional
