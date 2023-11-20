@@ -3,40 +3,55 @@ package com.personalproject.personalproject_1.controller;
 
 import com.personalproject.personalproject_1.dto.PostRequestDto;
 import com.personalproject.personalproject_1.dto.PostResponseDto;
+import com.personalproject.personalproject_1.exception.Exception;
+import com.personalproject.personalproject_1.exception.ExceptionResponseDto;
 import com.personalproject.personalproject_1.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/posts")
 public class PostController {
 
     private final PostService postService;
 
-    public PostController(PostService postService){
-        this.postService = postService;
-    }
-
     @PostMapping
-    public PostResponseDto createPosting(@RequestBody PostRequestDto requestDto){
-        return postService.createPosting(requestDto);
+    public ResponseEntity<PostResponseDto> createPost(@RequestBody PostRequestDto requestDto){
+        PostResponseDto postResponseDto = postService.createPost(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(postResponseDto);
     }
 
-    @GetMapping("/{id}")
-    public PostResponseDto getPosting(@PathVariable Long id) {
-        return postService.getPosting(id);
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
+        PostResponseDto postResponseDto = postService.getPost(postId);
+        return ResponseEntity.ok(postResponseDto);
     }
     @GetMapping
-    public List<PostResponseDto> getPostings(){
-        return postService.getPostings();
+    public ResponseEntity<List<PostResponseDto>> getPosts(){
+        List<PostResponseDto> postResponseDto = postService.getPosts();
+        return ResponseEntity.ok(postResponseDto);
     }
-    @PutMapping("/{id}/{password}")
-    public PostResponseDto updatePosting(@PathVariable Long id, @PathVariable String password, @RequestBody PostRequestDto requestDto){
-        return postService.updatePosting(id, password, requestDto);
+    @PatchMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto){
+        PostResponseDto postResponseDto = postService.updatePost(postId,requestDto);
+        return ResponseEntity.ok(postResponseDto);
     }
-    @DeleteMapping("/{id}/{password}")
-    public Long deletePosting(@PathVariable long id, @PathVariable String password){
-        return postService.deletePosting(id,password);
+
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @RequestHeader("password") String password){
+        postService.deletePost(postId,password);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ExceptionResponseDto> exceptionHandler(Exception e){
+        ExceptionResponseDto exceptionResponseDto = new ExceptionResponseDto(e.getErrorCode());
+        return ResponseEntity.status(exceptionResponseDto.getStatus()).body(exceptionResponseDto);
     }
 }
