@@ -19,23 +19,20 @@ public class Post extends Time {
     private long id;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "author", nullable = false)
-    private String author;
-    @Column(name = "password", nullable = false)
-    private String password;
-    @Column(name = "content", nullable = false, length = 500)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @Column(name = "content", length = 500)
     private String content;
+    @Column
+    private Boolean isComplete;
 
-
-    public Post(PostRequestDto requestDto) {
+    public void update(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
-        this.author = requestDto.getAuthor();
-        this.password = requestDto.getPassword();
         this.content = requestDto.getContent();
     }
-    public void update(PostRequestDto requestDto){
-        this.title = requestDto.getTitle();
-        this.author = requestDto.getAuthor();
-        this.content = requestDto.getContent();
+
+    public void complete() {
+        this.isComplete = true;
     }
 }
