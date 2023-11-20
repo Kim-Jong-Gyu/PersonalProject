@@ -4,19 +4,17 @@ import com.personalproject.personalproject_1.dto.PostRequestDto;
 import com.personalproject.personalproject_1.dto.PostResponseDto;
 import com.personalproject.personalproject_1.entitiy.Post;
 import com.personalproject.personalproject_1.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
-
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
 
     public PostResponseDto createPost(PostRequestDto requestDto) {
         Post post = new Post(requestDto);
@@ -43,13 +41,12 @@ public class PostService {
         return new PostResponseDto(post);
     }
 
-    public Long deletePost(Long id, String password) {
+    public void deletePost(Long id, String password) {
         Post post = findPost(id);
         if (!post.getPassword().equals(password)) {
             throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
         }
         postRepository.delete(post);
-        return id;
     }
 
 
