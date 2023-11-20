@@ -7,16 +7,12 @@ import com.personalproject.personalproject_1.exception.Exception;
 import com.personalproject.personalproject_1.exception.ExceptionResponseDto;
 import com.personalproject.personalproject_1.impl.UserDetailsImpl;
 import com.personalproject.personalproject_1.service.PostService;
-import com.personalproject.personalproject_1.util.JwtUtil;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +22,6 @@ import java.util.Map;
 public class PostController {
 
     private final PostService postService;
-
-    private final JwtUtil jwtUtil;
-    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     @PostMapping
     public ResponseEntity<PostResponseDto> createPost(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PostRequestDto requestDto){
