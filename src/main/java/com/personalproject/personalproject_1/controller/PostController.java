@@ -34,11 +34,11 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postResponseDto);
     }
 
-//    @GetMapping("/{postId}")
-//    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
-//        PostResponseDto postResponseDto = postService.getPost(postId);
-//        return ResponseEntity.ok(postResponseDto);
-//    }
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long postId) {
+        PostResponseDto postResponseDto = postService.getPost(postId);
+        return ResponseEntity.ok(postResponseDto);
+    }
 //    @GetMapping
 //    public ResponseEntity<List<PostResponseDto>> getPosts(){
 //        List<PostResponseDto> postResponseDto = postService.getPosts();

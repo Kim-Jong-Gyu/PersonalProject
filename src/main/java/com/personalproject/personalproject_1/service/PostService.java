@@ -29,9 +29,9 @@ public class PostService {
         return new PostResponseDto(savePost);
     }
 
-//    public PostResponseDto getPost(Long id) {
-//        return new PostResponseDto(findPost(id));
-//    }
+    public PostResponseDto getPost(Long id) {
+        return new PostResponseDto(findPost(id));
+    }
 //
 //    public List<PostResponseDto> getPosts() {
 //        return postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).toList();
@@ -57,9 +57,9 @@ public class PostService {
 //    }
 //
 //
-//    private Post findPost(Long id) {
-//        return postRepository.findById(id).orElseThrow(() ->
-//                new Exception(ErrorCode.NOT_FOUND_POST)
-//        );
-//    }
+    private Post findPost(Long id) {
+        return postRepository.findById(id).orElseThrow(() ->
+                new Exception(ErrorCode.NOT_FOUND_POST)
+        );
+    }
 }
