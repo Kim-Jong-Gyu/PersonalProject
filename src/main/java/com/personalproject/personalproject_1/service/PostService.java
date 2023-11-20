@@ -2,7 +2,7 @@ package com.personalproject.personalproject_1.service;
 
 import com.personalproject.personalproject_1.dto.PostRequestDto;
 import com.personalproject.personalproject_1.dto.PostResponseDto;
-import com.personalproject.personalproject_1.entitiy.Post;
+import com.personalproject.personalproject_1.entity.Post;
 import com.personalproject.personalproject_1.exception.ErrorCode;
 import com.personalproject.personalproject_1.exception.Exception;
 import com.personalproject.personalproject_1.repository.PostRepository;
