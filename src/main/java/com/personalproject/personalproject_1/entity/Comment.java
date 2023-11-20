@@ -39,4 +39,8 @@ public class Comment extends Time {
         this.post = post;
         post.getCommentList().add(this);
     }
+
+    public void update(CommentRequestDto requestDto) {
+        this.text = requestDto.getText();
+    }
 }
