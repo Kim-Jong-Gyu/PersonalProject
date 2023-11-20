@@ -38,21 +38,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             if(jwtUtil.validateToken(token)) {
                 Claims info = jwtUtil.getUserInfoFromToken(token);
 
-                // 인증정보에 요저정보(username) 넣기
-                // username -> user 조회
+                // 상세 정보 저장
                 String username = info.getSubject();
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
-                // -> userDetails 에 담고
                 UserDetailsImpl userDetails = userDetailsService.getUserDetails(username);
-                // -> authentication의 principal 에 담고
+
                 Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                // -> securityContent 에 담고
+
                 context.setAuthentication(authentication);
-                // -> SecurityContextHolder 에 담고
+
                 SecurityContextHolder.setContext(context);
-                // -> 이제 @AuthenticationPrincipal 로 조회할 수 있음
+
             } else {
-                // 인증정보가 존재하지 않을때
                 CommonResponseDto commonResponseDto = new CommonResponseDto("토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST.value());                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.setContentType("application/json; charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(commonResponseDto));
