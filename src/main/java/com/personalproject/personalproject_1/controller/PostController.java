@@ -51,14 +51,6 @@ public class PostController {
         postService.updateComplete(postId, userDetails.getUser());
         return ResponseEntity.ok().build();
     }
-
-
-//    @DeleteMapping("/{postId}")
-//    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @RequestHeader("password") String password){
-//        postService.deletePost(postId,password);
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//    }
-
     @ExceptionHandler
     public ResponseEntity<ExceptionResponseDto> exceptionHandler(Exception e){
         ExceptionResponseDto exceptionResponseDto = new ExceptionResponseDto(e.getErrorCode());

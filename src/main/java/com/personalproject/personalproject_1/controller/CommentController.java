@@ -25,11 +25,15 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentResponseDto);
     }
 
-    @PatchMapping
-    public ResponseEntity<CommentResponseDto> updateComment(@AuthenticationPrincipal UserDetailsImpl userDetails,@RequestBody CommentRequestDto requestDto){
-        CommentResponseDto commentResponseDto = commentService.updateComment(requestDto, userDetails.getUser());
+    @PatchMapping("/{commentId}")
+    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails,@RequestBody CommentRequestDto requestDto){
+        CommentResponseDto commentResponseDto = commentService.updateComment(commentId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(commentResponseDto);
     }
 
-
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        commentService.deleteComment(commentId, userDetails.getUser());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

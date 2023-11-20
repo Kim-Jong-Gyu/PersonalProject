@@ -33,8 +33,8 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentResponseDto updateComment(CommentRequestDto requestDto, User user) {
-        Comment comment = findComment(requestDto.getId());
+    public CommentResponseDto updateComment(Long commentId, CommentRequestDto requestDto, User user) {
+        Comment comment = findComment(commentId);
         if(Objects.equals(comment.getUser().getId(), user.getId())){
             comment.update(requestDto);
         }
@@ -44,9 +44,18 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
+    public void deleteComment(Long commentId, User user) {
+        Comment comment = findComment(commentId);
+        if(!Objects.equals(comment.getUser().getId(), user.getId())){
+            throw new Exception(ErrorCode.DO_NOT_MATCH_ID);
+        }
+        commentRepository.delete(comment);
+    }
+
     private Comment findComment(Long id) {
         return commentRepository.findById(id).orElseThrow(() ->
                 new Exception(ErrorCode.NOT_FOUND_POST)
         );
     }
+
 }
