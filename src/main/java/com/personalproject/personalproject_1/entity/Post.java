@@ -1,4 +1,4 @@
-package com.personalproject.personalproject_1.entitiy;
+package com.personalproject.personalproject_1.entity;
 
 import com.personalproject.personalproject_1.dto.PostRequestDto;
 import jakarta.persistence.*;
