@@ -3,6 +3,8 @@ package com.personalproject.personalproject_1.service;
 import com.personalproject.personalproject_1.dto.PostRequestDto;
 import com.personalproject.personalproject_1.dto.PostResponseDto;
 import com.personalproject.personalproject_1.entitiy.Post;
+import com.personalproject.personalproject_1.exception.ErrorCode;
+import com.personalproject.personalproject_1.exception.Exception;
 import com.personalproject.personalproject_1.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +37,7 @@ public class PostService {
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
         Post post = findPost(id);
         if (!post.getPassword().equals(requestDto.getPassword())) {
-            throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
+            throw new Exception(ErrorCode.DO_NOT_MATCH_PASSWORD);
         }
         post.update(requestDto);
         return new PostResponseDto(post);
@@ -44,7 +46,7 @@ public class PostService {
     public void deletePost(Long id, String password) {
         Post post = findPost(id);
         if (!post.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
+            throw new Exception(ErrorCode.DO_NOT_MATCH_PASSWORD);
         }
         postRepository.delete(post);
     }
@@ -52,7 +54,7 @@ public class PostService {
 
     private Post findPost(Long id) {
         return postRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
+                new Exception(ErrorCode.NOT_FOUND_POST)
         );
     }
 }
