@@ -51,4 +51,4 @@
 ![Project ERD](https://github.com/Kim-Jong-Gyu/PersonalProject_1/assets/62927374/27bf0150-16d3-4cf6-b761-d045586c50e2)
 
 #### 3. API
-[Project ERD] (https://documenter.getpostman.com/view/20661979/2s9YXpVyVo)
+[ProjectAPI] (https://documenter.getpostman.com/view/20661979/2s9YXpVyVo)
