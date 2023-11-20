@@ -49,17 +49,16 @@ public class PostService {
         });
         return userPostMap;
     }
-//
-//
-//    @Transactional
-//    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
-//        Post post = findPost(id);
-//        if (!post.getPassword().equals(requestDto.getPassword())) {
-//            throw new Exception(ErrorCode.DO_NOT_MATCH_PASSWORD);
-//        }
-//        post.update(requestDto);
-//        return new PostResponseDto(post);
-//    }
+
+
+    @Transactional
+    public PostResponseDto updatePost(Long id, PostRequestDto requestDto, User user) {
+        Post post = findPost(id);
+        if(post.getId() == user.getId()){
+            post.update(requestDto);
+        }
+        return new PostResponseDto(post);
+    }
 //
 //    public void deletePost(Long id, String password) {
 //        Post post = findPost(id);

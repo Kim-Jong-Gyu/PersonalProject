@@ -47,13 +47,13 @@ public class PostController {
         return ResponseEntity.ok(postResponseDto);
     }
 
-//    @PatchMapping("/{postId}")
-//    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto){
-//        PostResponseDto postResponseDto = postService.updatePost(postId,requestDto);
-//        return ResponseEntity.ok(postResponseDto);
-//    }
-//
-//
+    @PatchMapping("/{postId}")
+    public ResponseEntity<PostResponseDto> updatePost(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long postId, @RequestBody PostRequestDto requestDto){
+        PostResponseDto postResponseDto = postService.updatePost(postId,requestDto, userDetails.getUser());
+        return ResponseEntity.ok(postResponseDto);
+    }
+
+
 //    @DeleteMapping("/{postId}")
 //    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @RequestHeader("password") String password){
 //        postService.deletePost(postId,password);

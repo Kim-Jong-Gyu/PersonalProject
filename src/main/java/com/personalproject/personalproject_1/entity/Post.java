@@ -26,4 +26,9 @@ public class Post extends Time {
     private String content;
     @Column
     private Boolean isComplete;
+
+    public void update(PostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
 }
