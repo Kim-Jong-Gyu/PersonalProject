@@ -43,3 +43,10 @@
 #### 1. 수정사항
 - ResponseEntity를 이용한 반환
 - Exception 추가
+
+
+#### 2. ERD
+![Project.png](..%2F..%2FDownloads%2FProject.png)
+
+#### 3. API
+[수정한 API](https://documenter.getpostman.com/view/20661979/2s9YXpVyVo)
