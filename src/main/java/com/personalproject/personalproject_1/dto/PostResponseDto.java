@@ -1,6 +1,6 @@
 package com.personalproject.personalproject_1.dto;
 
-import com.personalproject.personalproject_1.entity.Post;
+import com.personalproject.personalproject_1.entitiy.Post;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
