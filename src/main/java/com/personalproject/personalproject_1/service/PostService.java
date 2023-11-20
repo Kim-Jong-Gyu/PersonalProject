@@ -69,17 +69,8 @@ public class PostService {
             throw new Exception(ErrorCode.DO_NOT_MATCH_ID);
         }
     }
-//
-//    public void deletePost(Long id, String password) {
-//        Post post = findPost(id);
-//        if (!post.getPassword().equals(password)) {
-//            throw new Exception(ErrorCode.DO_NOT_MATCH_PASSWORD);
-//        }
-//        postRepository.delete(post);
-//    }
-//
-//
-    private Post findPost(Long id) {
+
+    public Post findPost(Long id) {
         return postRepository.findById(id).orElseThrow(() ->
                 new Exception(ErrorCode.NOT_FOUND_POST)
         );
