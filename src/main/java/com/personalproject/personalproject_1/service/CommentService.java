@@ -2,16 +2,12 @@ package com.personalproject.personalproject_1.service;
 
 import com.personalproject.personalproject_1.dto.CommentRequestDto;
 import com.personalproject.personalproject_1.dto.CommentResponseDto;
-import com.personalproject.personalproject_1.dto.PostRequestDto;
-import com.personalproject.personalproject_1.dto.PostResponseDto;
 import com.personalproject.personalproject_1.entity.Comment;
-import com.personalproject.personalproject_1.entity.Post;
+import com.personalproject.personalproject_1.entity.Todo;
 import com.personalproject.personalproject_1.entity.User;
 import com.personalproject.personalproject_1.exception.ErrorCode;
 import com.personalproject.personalproject_1.exception.Exception;
 import com.personalproject.personalproject_1.repository.CommentRepository;
-import com.personalproject.personalproject_1.repository.PostRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +18,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-    private final PostService postService;
+    private final TodoService todoService;
     public CommentResponseDto addComment(CommentRequestDto requestDto, User user) {
-        Post post = postService.findPost(requestDto.getId());
+        Todo todo = todoService.findTodo(requestDto.getId());
         Comment comment = new Comment(requestDto);
         comment.setUser(user);
-        comment.setPost(post);
+        comment.setTodo(todo);
         commentRepository.save(comment);
         return new CommentResponseDto(comment);
     }
@@ -54,7 +50,7 @@ public class CommentService {
 
     private Comment findComment(Long id) {
         return commentRepository.findById(id).orElseThrow(() ->
-                new Exception(ErrorCode.NOT_FOUND_POST)
+                new IllegalArgumentException("해당 Comment를 찾을수 없는니다.")
         );
     }
 

@@ -1,7 +1,7 @@
 package com.personalproject.personalproject_1.entity;
 
-import com.personalproject.personalproject_1.dto.PostRequestDto;
-import com.personalproject.personalproject_1.dto.PostResponseDto;
+import com.personalproject.personalproject_1.dto.TodoRequestDto;
+import com.personalproject.personalproject_1.dto.TodoResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +14,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "posts")
+@Table(name = "todo")
 @NoArgsConstructor
-public class Post extends Time {
+public class Todo extends Time {
     @Id
     // auto-increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +31,17 @@ public class Post extends Time {
     @Column
     private Boolean isComplete;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "todo")
     private List<Comment> commentList = new ArrayList<>();
 
-    public Post(PostResponseDto postResponseDto) {
-        this.id = postResponseDto.getId();
-        this.title = postResponseDto.getTitle();
-        this.content = postResponseDto.getContent();
+    public Todo(TodoResponseDto todoResponseDto) {
+        this.id = todoResponseDto.getId();
+        this.title = todoResponseDto.getTitle();
+        this.content = todoResponseDto.getContent();
         this.isComplete = false;
     }
 
-    public void update(PostRequestDto requestDto) {
+    public void update(TodoRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
