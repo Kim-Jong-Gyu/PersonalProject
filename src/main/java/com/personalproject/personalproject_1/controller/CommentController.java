@@ -2,9 +2,6 @@ package com.personalproject.personalproject_1.controller;
 
 import com.personalproject.personalproject_1.dto.CommentRequestDto;
 import com.personalproject.personalproject_1.dto.CommentResponseDto;
-import com.personalproject.personalproject_1.dto.PostRequestDto;
-import com.personalproject.personalproject_1.dto.PostResponseDto;
-import com.personalproject.personalproject_1.entity.Comment;
 import com.personalproject.personalproject_1.impl.UserDetailsImpl;
 import com.personalproject.personalproject_1.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +29,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         commentService.deleteComment(commentId, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

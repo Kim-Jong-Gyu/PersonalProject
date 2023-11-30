@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CommentRequestDto {
-    //post_id
+    //todo_id
     private Long id;
     private String text;
 }

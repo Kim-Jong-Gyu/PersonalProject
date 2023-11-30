@@ -24,8 +24,8 @@ public class Comment extends Time {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "todo_id")
+    private Todo todo;
 
     public Comment(CommentRequestDto requestDto) {
         this.text = requestDto.getText();
@@ -35,9 +35,9 @@ public class Comment extends Time {
         this.user = user;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
-        post.getCommentList().add(this);
+    public void setTodo(Todo todo) {
+        this.todo = todo;
+        todo.getCommentList().add(this);
     }
 
     public void update(CommentRequestDto requestDto) {
