@@ -23,9 +23,11 @@ public class Todo extends Time {
     private long id;
     @Column(name = "title", nullable = false)
     private String title;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     @Column(name = "content", length = 500)
     private String content;
     @Column

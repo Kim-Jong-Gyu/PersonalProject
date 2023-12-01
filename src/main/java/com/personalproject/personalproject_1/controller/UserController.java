@@ -3,7 +3,6 @@ package com.personalproject.personalproject_1.controller;
 import com.personalproject.personalproject_1.dto.CommonResponseDto;
 import com.personalproject.personalproject_1.dto.SignupRequestDto;
 import com.personalproject.personalproject_1.service.UserService;
-import com.personalproject.personalproject_1.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
 
     // 회원가입
     @PostMapping("/signup")
