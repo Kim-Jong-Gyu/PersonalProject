@@ -4,10 +4,11 @@ import com.personalproject.personalproject_1.dto.TodoRequestDto;
 import com.personalproject.personalproject_1.dto.TodoResponseDto;
 import com.personalproject.personalproject_1.entity.Todo;
 import com.personalproject.personalproject_1.entity.User;
-import com.personalproject.personalproject_1.exception.ErrorCode;
-import com.personalproject.personalproject_1.exception.Exception;
+import com.personalproject.personalproject_1.exception.TodoNotFoundException;
+import com.personalproject.personalproject_1.exception.UserNotMatchException;
 import com.personalproject.personalproject_1.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.*;
 public class TodoService {
 
     private final TodoRepository todoRepository;
+    private final MessageSource messageSource;
 
     public TodoResponseDto createTodo(TodoRequestDto requestDto, User user) {
         Todo todo = new Todo();
@@ -37,10 +39,9 @@ public class TodoService {
         Map<String, List<TodoResponseDto>> usertodoMap = new HashMap<>();
         List<TodoResponseDto> todoList = todoRepository.findAllByOrderByCreatedAtDesc().stream().map(TodoResponseDto::new).toList();
         todoList.forEach(todoResponseDto -> {
-            if(usertodoMap.containsKey(todoResponseDto.getUsername())){
+            if (usertodoMap.containsKey(todoResponseDto.getUsername())) {
                 usertodoMap.get(todoResponseDto.getUsername()).add(todoResponseDto);
-            }
-            else{
+            } else {
                 usertodoMap.put(todoResponseDto.getUsername(), new ArrayList<>(List.of(todoResponseDto)));
             }
         });
@@ -51,28 +52,41 @@ public class TodoService {
     @Transactional
     public TodoResponseDto updateTodo(Long id, TodoRequestDto requestDto, User user) {
         Todo todo = findTodo(id);
-        if(Objects.equals(todo.getUser().getId(), user.getId())){
+        if (matchUser(todo.getUser().getId(), user.getId())) {
             todo.update(requestDto);
-        }
-        else {
-            throw new Exception(ErrorCode.DO_NOT_MATCH_ID);
         }
         return new TodoResponseDto(todo);
     }
+
     @Transactional
     public void updateComplete(Long id, User user) {
         Todo todo = findTodo(id);
-        if(Objects.equals(todo.getUser().getId(), user.getId())){
+        if (matchUser(todo.getUser().getId(), user.getId())) {
             todo.complete();
-        }
-        else {
-            throw new Exception(ErrorCode.DO_NOT_MATCH_ID);
         }
     }
 
     public Todo findTodo(Long id) {
         return todoRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 Id To-do가 없습니다.")
+                new TodoNotFoundException(messageSource.getMessage(
+                        "not.found.todo",
+                        null,
+                        "Not found Todo",
+                        Locale.getDefault()
+                ))
         );
+    }
+
+    public boolean matchUser(Long authorId, Long userId) {
+        if (Objects.equals(authorId, userId)) {
+            return true;
+        } else {
+            throw new UserNotMatchException(messageSource.getMessage(
+                    "not.match.user",
+                    null,
+                    "Not match User",
+                    Locale.getDefault()
+            ));
+        }
     }
 }
