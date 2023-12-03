@@ -3,8 +3,6 @@ package com.personalproject.personalproject_1.controller;
 
 import com.personalproject.personalproject_1.dto.TodoRequestDto;
 import com.personalproject.personalproject_1.dto.TodoResponseDto;
-import com.personalproject.personalproject_1.exception.Exception;
-import com.personalproject.personalproject_1.exception.ExceptionResponseDto;
 import com.personalproject.personalproject_1.impl.UserDetailsImpl;
 import com.personalproject.personalproject_1.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -55,10 +53,5 @@ public class TodoController {
     public ResponseEntity<Void> updateComplete(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long todoId){
         todoService.updateComplete(todoId, userDetails.getUser());
         return ResponseEntity.ok().build();
-    }
-    @ExceptionHandler
-    public ResponseEntity<ExceptionResponseDto> exceptionHandler(Exception e){
-        ExceptionResponseDto exceptionResponseDto = new ExceptionResponseDto(e.getErrorCode());
-        return ResponseEntity.status(exceptionResponseDto.getStatus()).body(exceptionResponseDto);
     }
 }
