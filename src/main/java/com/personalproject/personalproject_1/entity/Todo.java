@@ -36,13 +36,6 @@ public class Todo extends Time {
     @OneToMany(mappedBy = "todo")
     private List<Comment> commentList = new ArrayList<>();
 
-    public Todo(TodoResponseDto todoResponseDto) {
-        this.id = todoResponseDto.getId();
-        this.title = todoResponseDto.getTitle();
-        this.content = todoResponseDto.getContent();
-        this.isComplete = false;
-    }
-
     public void update(TodoRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
